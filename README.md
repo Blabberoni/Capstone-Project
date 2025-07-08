@@ -1,6 +1,6 @@
-# Capstone Project: Real-Time Dynamic Parking Price Optimization
+# 🎯 Capstone Project: Real-Time Dynamic Parking Price Optimization
 
-> Dynamic pricing engine for urban parking lots using real-time streaming, demand drivers & competitive pricing — built with Python, Pathway, Bokeh & Panel.
+> Dynamic pricing engine for urban parking lots using real-time data streaming, demand drivers & competitive pricing — built with Python (Pandas) and Pathway applications. Includes real-time Data Visualization using Bokeh plots and Panel.
 
 ---
 
@@ -19,10 +19,20 @@
 
 **Goal:**  
 - Ingest real-time parking data stream
-- Compute demand dynamically based on occupancy, queue length, traffic, special days & vehicle types
-- Adjust price competitively if nearby lots are cheaper or more expensive
+- Compute demand dynamically based on occupancy, queue, traffic, special days & vehicle types
+- Compute **real competitor price** using *latitude & longitude*
+- Adjust price competitively
 - Visualize daily price trend live
 
 ---
 
 ### 🧩 **Architecture flow:**
+
+```mermaid
+flowchart TD
+    A[Parking CSV with lat/lon] --> B[Precompute nearby lots]
+    B --> C[Pathway streaming]
+    C --> D[Tumbling window per lot]
+    D --> E[Self-join competitor avg price]
+    E --> F[Competitive price]
+    F --> G[Live Bokeh+Panel plot]
